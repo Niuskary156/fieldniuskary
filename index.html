@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Invoice Calculator</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    .row { display: flex; margin-bottom: 10px; }
+    .col-6 { flex: 6; }
+    .col-3 { flex: 3; }
+    .col-2 { flex: 2; }
+    input[type="number"] { width: 80px; }
+    #total_value { font-weight: bold; font-size: 1.2em; }
+  </style>
+  <!-- jQuery CDN -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+  <h1>Invoice Calculator</h1>
+
+  <!-- Sugar -->
+  <div class="row">
+    <div class="col-6">1. Powdered white sugar (cups)</div>
+    <div class="col-3"><input type="number" value="0" class="qty" id="qty_sugar" /></div>
+    <div class="col-2"><input type="number" readonly value="0" id="price_sugar" /></div>
+  </div>
+
+  <!-- Butter -->
+  <div class="row">
+    <div class="col-6">2. Butter (sticks)</div>
+    <div class="col-3"><input type="number" value="0" class="qty" id="qty_butter" /></div>
+    <div class="col-2"><input type="number" readonly value="0" id="price_butter" /></div>
+  </div>
+
+  <!-- Eggs -->
+  <div class="row">
+    <div class="col-6">3. Eggs (dozen)</div>
+    <div class="col-3"><input type="number" value="0" class="qty" id="qty_eggs" /></div>
+    <div class="col-2"><input type="number" readonly value="0" id="price_eggs" /></div>
+  </div>
+
+  <!-- Vanilla -->
+  <div class="row">
+    <div class="col-6">4. Vanilla (bottles)</div>
+    <div class="col-3"><input type="number" value="0" class="qty" id="qty_vanilla" /></div>
+    <div class="col-2"><input type="number" readonly value="0" id="price_vanilla" /></div>
+  </div>
+
+  <!-- Total -->
+  <div class="row">
+    <div class="col-6"><strong>Total:</strong></div>
+    <div class="col-3"></div>
+    <div class="col-2"><span id="total_value">0</span></div>
+  </div>
+
+  <script>
+    function calculateTotal() {
+      let unit_price = {
+        sugar: 22,
+        butter: 12,
+        eggs: 2,
+        vanilla: 43
+      };
+      let item_price = {};
+
+      item_price.sugar = ($("#qty_sugar").val() * unit_price.sugar);
+      $("#price_sugar").val(item_price.sugar);
+
+      item_price.butter = ($("#qty_butter").val() * unit_price.butter);
+      $("#price_butter").val(item_price.butter);
+
+      item_price.eggs = ($("#qty_eggs").val() * unit_price.eggs);
+      $("#price_eggs").val(item_price.eggs);
+
+      item_price.vanilla = ($("#qty_vanilla").val() * unit_price.vanilla);
+      $("#price_vanilla").val(item_price.vanilla);
+
+      let total = item_price.sugar + item_price.butter + item_price.eggs + item_price.vanilla;
+      $("#total_value").text(total);
+    }
+
+    $(function() {
+      $(".qty").on("change keyup", calculateTotal);
+    });
+  </script>
+</body>
+</html>
